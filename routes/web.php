@@ -31,13 +31,8 @@ Route::post('/daftar', [RegisterController::class, 'register'])->name('register.
 
 // Routes untuk Admin (hanya bisa diakses oleh admin)
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
-    
-    // Dashboard Admin
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
-    
-    // CRUD Beasiswa
     Route::resource('beasiswa', AdminBeasiswaController::class);
-    
     // Manajemen Pendaftaran
     Route::prefix('pendaftaran')->name('pendaftaran.')->group(function () {
         Route::get('/', [AdminPendaftaranController::class, 'index'])->name('index');
@@ -49,10 +44,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 
 // Routes untuk Peserta (hanya bisa diakses oleh peserta)
 Route::middleware(['auth', 'peserta'])->prefix('peserta')->name('peserta.')->group(function () {
-    
-    // Dashboard Peserta
     Route::get('/dashboard', [PesertaDashboardController::class, 'index'])->name('dashboard');
-    
     // Lihat Beasiswa
     Route::prefix('beasiswa')->name('beasiswa.')->group(function () {
         Route::get('/', [PesertaBeasiswaController::class, 'index'])->name('index');
@@ -60,7 +52,6 @@ Route::middleware(['auth', 'peserta'])->prefix('peserta')->name('peserta.')->gro
         Route::get('/{beasiswa}/daftar', [PesertaBeasiswaController::class, 'daftar'])->name('daftar');
         Route::post('/{beasiswa}/daftar', [PesertaBeasiswaController::class, 'storeDaftar'])->name('store-daftar');
     });
-    
     // Lihat Pendaftaran
     Route::prefix('pendaftaran')->name('pendaftaran.')->group(function () {
         Route::get('/', [PesertaPendaftaranController::class, 'index'])->name('index');

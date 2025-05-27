@@ -1,5 +1,4 @@
 <?php
-// app/Models/Pengguna.php
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -32,13 +31,7 @@ class Pengguna extends Authenticatable
         'remember_token',
     ];
 
-    protected $casts = [
-        'email_terverifikasi_pada' => 'datetime',
-        'tanggal_lahir' => 'date',
-        'ipk' => 'decimal:2'
-    ];
-
-        // Override method untuk autentikasi Laravel
+    // Override method untuk autentikasi Laravel
     public function getAuthPassword()
     {
         return $this->kata_sandi;
@@ -61,4 +54,4 @@ class Pengguna extends Authenticatable
     {
         return $this->peran === 'peserta';
     }
-};
+}

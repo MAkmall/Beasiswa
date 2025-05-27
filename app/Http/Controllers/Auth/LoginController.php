@@ -19,12 +19,12 @@ class LoginController extends Controller
     {
         $request->validate([
             'email' => 'required|email',
-            'kata_sandi' => 'required:MIN:6'
+            'password' => 'required|min:6' // Perbaiki sintaksis dan nama field
         ]);
 
         $pengguna = Pengguna::where('email', $request->email)->first();
 
-        if ($pengguna && Hash::check($request->kata_sandi, $pengguna->kata_sandi)) {
+        if ($pengguna && Hash::check($request->password, $pengguna->kata_sandi)) { // Gunakan $request->password
             Auth::login($pengguna);
 
             if ($pengguna->adalahAdmin()) {

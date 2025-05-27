@@ -1,20 +1,25 @@
 <?php
-// app/Models/User.php
-namespace App\Models;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+// app/Http/Middleware/AdminMiddleware.php
+namespace App\Http\Middleware;
 
-class User extends Authenticatable
+use Closure;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+class PesertaMiddleware
 {
-    use Notifiable;
-
-    // Metode untuk memeriksa apakah pengguna adalah peserta
-    public function adalahPeserta()
+    public function handle(Request $request, Closure $next)
     {
-        // Misalnya, kita anggap kolom 'role' di tabel users menyimpan informasi peran pengguna
-        return $this->role === 'peserta'; // Sesuaikan dengan logika peran Anda
-    }
+        if (!Auth::check()) {
+            return redirect()->route('login');
+        }
 
-    // Kolom lainnya dan hubungan model dapat ditambahkan di sini
+        // Cek apakah pengguna adalah admin
+        if (Auth::user()->role !== 'Peserta') { // Sesuaikan dengan logika peran Anda
+            abort(403, 'Akses ditolak. Hanya admin yang dapat mengakses halaman ini.');
+        }
+
+        return $next($request);
+    }
 }

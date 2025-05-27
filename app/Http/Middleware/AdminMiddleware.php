@@ -16,7 +16,7 @@ class AdminMiddleware
         }
 
         // Cek apakah pengguna adalah admin
-        if (Auth::user()->role !== 'admin') { // Sesuaikan dengan logika peran Anda
+        if (Auth::user()->peran !== 'admin') { // Ubah 'role' menjadi 'peran'
             abort(403, 'Akses ditolak. Hanya admin yang dapat mengakses halaman ini.');
         }
 

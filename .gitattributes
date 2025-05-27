@@ -1,10 +1,13 @@
-* text=auto
+# Pastikan semua file teks menggunakan LF
+* text=auto eol=lf
 
+# Aturan diff tetap sama
 *.blade.php diff=html
 *.css diff=css
 *.html diff=html
 *.md diff=markdown
 *.php diff=php
 
+# Pengecualian untuk ekspor
 /.github export-ignore
 CHANGELOG.md export-ignore
